@@ -1,4 +1,11 @@
 import { Button } from "@/components/ui/button";
+import {
+  SignedIn,
+  SignedOut,
+  SignInButton,
+  SignUpButton,
+  UserButton,
+} from "@clerk/clerk-react";
 
 const Header = () => {
   return (
@@ -20,19 +27,40 @@ const Header = () => {
             <a href="#features" className="text-foreground hover:text-primary transition-colors">
               Features
             </a>
-            <a href="#gallery" className="text-foreground hover:text-primary transition-colors">
-              Gallery
-            </a>
+            <SignedIn>
+              <a href="#gallery" className="text-foreground hover:text-primary transition-colors">
+                My Gallery
+              </a>
+            </SignedIn>
           </nav>
           
-          {/* Auth buttons */}
+          {/* Auth section */}
           <div className="flex items-center space-x-4">
-            <Button variant="ghost" className="hidden sm:inline-flex">
-              Sign In
-            </Button>
-            <Button variant="hero" size="sm">
-              Get Started
-            </Button>
+            <SignedOut>
+              <SignInButton mode="modal">
+                <Button variant="ghost" className="hidden sm:inline-flex">
+                  Sign In
+                </Button>
+              </SignInButton>
+              <SignUpButton mode="modal">
+                <Button variant="hero" size="sm">
+                  Get Started
+                </Button>
+              </SignUpButton>
+            </SignedOut>
+            
+            <SignedIn>
+              <Button variant="anime" size="sm">
+                Create New
+              </Button>
+              <UserButton 
+                appearance={{
+                  elements: {
+                    avatarBox: "w-10 h-10 rounded-full border-2 border-primary/30 hover:border-primary transition-colors",
+                  }
+                }}
+              />
+            </SignedIn>
           </div>
         </div>
       </div>

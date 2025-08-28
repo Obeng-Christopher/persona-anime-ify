@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { SignedIn, SignedOut, SignUpButton } from "@clerk/clerk-react";
 import heroImage from "@/assets/hero-transformation.jpg";
 
 const HeroSection = () => {
@@ -46,13 +47,27 @@ const HeroSection = () => {
         </p>
 
         <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-          <Button 
-            variant="hero" 
-            size="xl"
-            className="w-full sm:w-auto"
-          >
-            Start Your Transformation
-          </Button>
+          <SignedOut>
+            <SignUpButton mode="modal">
+              <Button 
+                variant="hero" 
+                size="xl"
+                className="w-full sm:w-auto"
+              >
+                Start Your Transformation
+              </Button>
+            </SignUpButton>
+          </SignedOut>
+          
+          <SignedIn>
+            <Button 
+              variant="hero" 
+              size="xl"
+              className="w-full sm:w-auto"
+            >
+              Create New Transformation
+            </Button>
+          </SignedIn>
           
           <Button 
             variant="anime" 
