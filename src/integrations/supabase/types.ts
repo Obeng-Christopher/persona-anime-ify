@@ -14,7 +14,126 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      characters: {
+        Row: {
+          anime_series: string
+          category: string
+          costume_description: string
+          created_at: string | null
+          id: string
+          image_url: string
+          is_featured: boolean | null
+          name: string
+          prompt_template: string
+        }
+        Insert: {
+          anime_series: string
+          category?: string
+          costume_description: string
+          created_at?: string | null
+          id?: string
+          image_url: string
+          is_featured?: boolean | null
+          name: string
+          prompt_template: string
+        }
+        Update: {
+          anime_series?: string
+          category?: string
+          costume_description?: string
+          created_at?: string | null
+          id?: string
+          image_url?: string
+          is_featured?: boolean | null
+          name?: string
+          prompt_template?: string
+        }
+        Relationships: []
+      }
+      transformations: {
+        Row: {
+          character_id: string | null
+          completed_at: string | null
+          created_at: string | null
+          id: string
+          original_image_url: string
+          processing_time: number | null
+          status: string | null
+          transformed_image_url: string | null
+          user_id: string | null
+          user_rating: number | null
+        }
+        Insert: {
+          character_id?: string | null
+          completed_at?: string | null
+          created_at?: string | null
+          id?: string
+          original_image_url: string
+          processing_time?: number | null
+          status?: string | null
+          transformed_image_url?: string | null
+          user_id?: string | null
+          user_rating?: number | null
+        }
+        Update: {
+          character_id?: string | null
+          completed_at?: string | null
+          created_at?: string | null
+          id?: string
+          original_image_url?: string
+          processing_time?: number | null
+          status?: string | null
+          transformed_image_url?: string | null
+          user_id?: string | null
+          user_rating?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "transformations_character_id_fkey"
+            columns: ["character_id"]
+            isOneToOne: false
+            referencedRelation: "characters"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "transformations_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      users: {
+        Row: {
+          avatar_url: string | null
+          created_at: string | null
+          email: string
+          id: string
+          name: string | null
+          total_transformations: number | null
+          updated_at: string | null
+        }
+        Insert: {
+          avatar_url?: string | null
+          created_at?: string | null
+          email: string
+          id?: string
+          name?: string | null
+          total_transformations?: number | null
+          updated_at?: string | null
+        }
+        Update: {
+          avatar_url?: string | null
+          created_at?: string | null
+          email?: string
+          id?: string
+          name?: string | null
+          total_transformations?: number | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
