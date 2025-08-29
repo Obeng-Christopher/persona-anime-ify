@@ -28,7 +28,7 @@ const features = [
   },
   {
     title: "Secure & Private",
-    description: "Your photos are processed securely and automatically deleted after transformation. We respect your privacy completely.",
+    description: " Your photos are processed securely and automatically deleted after transformation. We respect your privacy completely.",
     icon: "🔒",
   },
 ];
@@ -38,7 +38,7 @@ const FeatureSection = () => {
     <section className="py-20 px-6 bg-gradient-to-b from-transparent to-background/50">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-6xl font-bold bg-gradient-secondary bg-clip-text text-transparent mb-6">
+          <h2 className="text-4xl md:text-6xl font-bold text-gradient-secondary mb-6">
             Why Choose AnimeMe?
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
@@ -55,7 +55,7 @@ const FeatureSection = () => {
               <div className="text-4xl mb-4 animate-float" style={{ animationDelay: `${index * 0.1}s` }}>
                 {feature.icon}
               </div>
-              <h3 className="text-xl font-bold text-foreground mb-3 group-hover:bg-gradient-primary group-hover:bg-clip-text group-hover:text-transparent transition-all duration-300">
+              <h3 className="text-xl font-bold text-foreground mb-3 group-hover:text-gradient-primary transition-all duration-300">
                 {feature.title}
               </h3>
               <p className="text-muted-foreground leading-relaxed">

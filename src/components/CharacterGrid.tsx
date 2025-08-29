@@ -80,7 +80,7 @@ const CharacterGrid = ({
       <div className="max-w-7xl mx-auto">
         {showTitle && (
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-6xl font-bold bg-gradient-primary bg-clip-text text-transparent mb-6">
+            <h2 className="text-4xl md:text-6xl font-bold text-gradient-primary mb-6">
               Choose Your Character
             </h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
@@ -122,7 +122,7 @@ const CharacterGrid = ({
             <div className="mb-6">
               <p className="text-lg text-foreground">
                 Ready to transform as{" "}
-                <span className="font-bold bg-gradient-secondary bg-clip-text text-transparent">
+                <span className="font-bold text-gradient-secondary">
                   {selectedCharacter.name}
                 </span>
                 ?

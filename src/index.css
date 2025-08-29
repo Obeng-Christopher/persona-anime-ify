@@ -47,12 +47,17 @@
 
     --radius: 0.5rem;
 
-    /* Anime gradients */
+    /* Anime gradients - fixed to work properly with text and backgrounds */
     --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
     --gradient-secondary: linear-gradient(135deg, hsl(var(--secondary)), hsl(var(--secondary-glow)));
     --gradient-accent: linear-gradient(135deg, hsl(var(--accent)), hsl(var(--accent-glow)));
     --gradient-hero: linear-gradient(135deg, hsl(var(--background)) 0%, hsl(var(--background-secondary)) 100%);
     --gradient-card: linear-gradient(145deg, hsl(var(--card)) 0%, hsl(var(--card-hover)) 100%);
+    
+    /* Text gradients - separate from background gradients */
+    --text-gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
+    --text-gradient-secondary: linear-gradient(135deg, hsl(var(--secondary)), hsl(var(--secondary-glow)));
+    --text-gradient-accent: linear-gradient(135deg, hsl(var(--accent)), hsl(var(--accent-glow)));
     
     /* Anime glow effects */
     --glow-primary: 0 0 30px hsl(var(--primary-glow) / 0.3);
@@ -113,6 +118,31 @@
   
   .bg-gradient-card {
     background: var(--gradient-card);
+  }
+  
+  /* Text gradient utilities - fixed to work properly */
+  .text-gradient-primary {
+    background: var(--text-gradient-primary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+  
+  .text-gradient-secondary {
+    background: var(--text-gradient-secondary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+  
+  .text-gradient-accent {
+    background: var(--text-gradient-accent);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
   }
   
   /* Glow effects */

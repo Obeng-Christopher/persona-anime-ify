@@ -36,7 +36,7 @@ const HeroSection = () => {
 
       {/* Main content */}
       <div className="relative z-10 text-center max-w-4xl mx-auto px-6">
-        <h1 className="text-6xl md:text-8xl font-bold bg-gradient-primary bg-clip-text text-transparent mb-6 animate-glow-pulse">
+        <h1 className="text-6xl md:text-8xl font-bold text-gradient-primary mb-6 animate-glow-pulse">
           AnimeMe
         </h1>
         
@@ -85,19 +85,19 @@ const HeroSection = () => {
         {/* Stats */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16 pt-12 border-t border-border/30">
           <div className="text-center">
-            <div className="text-3xl md:text-4xl font-bold bg-gradient-secondary bg-clip-text text-transparent">
+            <div className="text-3xl md:text-4xl font-bold text-gradient-secondary">
               50+
             </div>
             <div className="text-muted-foreground mt-2">Anime Characters</div>
           </div>
           <div className="text-center">
-            <div className="text-3xl md:text-4xl font-bold bg-gradient-accent bg-clip-text text-transparent">
+            <div className="text-3xl md:text-4xl font-bold text-gradient-accent">
               AI Powered
             </div>
             <div className="text-muted-foreground mt-2">Transformations</div>
           </div>
           <div className="text-center">
-            <div className="text-3xl md:text-4xl font-bold bg-gradient-primary bg-clip-text text-transparent">
+            <div className="text-3xl md:text-4xl font-bold text-gradient-primary">
               Instant
             </div>
             <div className="text-muted-foreground mt-2">Results</div>

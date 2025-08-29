@@ -17,7 +17,7 @@ const Header = () => {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center space-x-2">
-            <div className="text-2xl font-bold bg-gradient-primary bg-clip-text text-transparent">
+            <div className="text-2xl font-bold text-gradient-primary">
               AnimeMe
             </div>
           </div>
