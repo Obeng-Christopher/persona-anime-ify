@@ -1,8 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { SignedIn, SignedOut, SignUpButton } from "@clerk/clerk-react";
+import { useNavigate } from "react-router-dom";
 import heroImage from "@/assets/hero-transformation.jpg";
 
 const HeroSection = () => {
+  const navigate = useNavigate();
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
       {/* Background with overlay */}
@@ -64,6 +67,7 @@ const HeroSection = () => {
               variant="hero" 
               size="xl"
               className="w-full sm:w-auto"
+              onClick={() => navigate('/transform')}
             >
               Create New Transformation
             </Button>

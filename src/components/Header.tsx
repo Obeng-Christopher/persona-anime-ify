@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
 import {
   SignedIn,
   SignedOut,
@@ -8,6 +9,8 @@ import {
 } from "@clerk/clerk-react";
 
 const Header = () => {
+  const navigate = useNavigate();
+
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border/30">
       <div className="max-w-7xl mx-auto px-6 py-4">
@@ -50,7 +53,11 @@ const Header = () => {
             </SignedOut>
             
             <SignedIn>
-              <Button variant="anime" size="sm">
+              <Button 
+                variant="anime" 
+                size="sm"
+                onClick={() => navigate('/transform')}
+              >
                 Create New
               </Button>
               <UserButton 
