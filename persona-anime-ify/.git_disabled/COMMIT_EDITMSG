@@ -1,0 +1,1 @@
+Fix colored strips issue: Replace problematic bg-gradient bg-clip-text text-transparent with proper text-gradient classes
