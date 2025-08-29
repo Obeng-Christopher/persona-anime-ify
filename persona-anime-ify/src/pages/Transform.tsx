@@ -3,10 +3,10 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Upload, Image as ImageIcon, Sparkles, Download, Wand2, Zap, Star } from "lucide-react";
-import { useUser, UserButton } from "@clerk/clerk-react";
+import { useUser, UserButton, useSession } from "@clerk/clerk-react";
 import { toast } from "sonner";
 import CharacterCard from "@/components/CharacterCard";
-import { supabase } from "@/integrations/supabase/client";
+import { getAuthenticatedSupabase } from "@/integrations/supabase/client";
 
 interface Character {
   id: string;
@@ -17,6 +17,7 @@ interface Character {
 
 const Transform = () => {
   const { user } = useUser();
+  const { session } = useSession();
   const [uploadedImage, setUploadedImage] = useState<string | null>(null);
   const [selectedCharacter, setSelectedCharacter] = useState<Character | null>(null);
   const [isTransforming, setIsTransforming] = useState(false);
@@ -26,11 +27,19 @@ const Transform = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    fetchCharacters();
-  }, []);
+    if (session) {
+      fetchCharacters();
+    }
+  }, [session]);
 
   const fetchCharacters = async () => {
+    if (!session) return;
+
     try {
+      const supabaseAccessToken = await session.getToken({
+        template: "supabase",
+      });
+      const supabase = getAuthenticatedSupabase(supabaseAccessToken);
       const { data, error } = await supabase
         .from('characters')
         .select('*')
@@ -71,13 +80,22 @@ const Transform = () => {
       return;
     }
 
+    if (!session) {
+      toast.error("You must be logged in to transform images.");
+      return;
+    }
+
     setIsTransforming(true);
     try {
+      const supabaseAccessToken = await session.getToken({
+        template: "supabase",
+      });
+
       const response = await fetch(`https://dajghtnduzkdpdgglany.supabase.co/functions/v1/transform-image`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`
+          'Authorization': `Bearer ${supabaseAccessToken}`
         },
         body: JSON.stringify({
           image: uploadedImage,
@@ -87,8 +105,14 @@ const Transform = () => {
       });
 
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'Transformation failed');
+        const errorText = await response.text();
+        console.error('Failed response:', {
+          status: response.status,
+          statusText: response.statusText,
+          body: errorText,
+        });
+        // Throw the raw text to be displayed in the toast
+        throw new Error(errorText || 'Transformation failed with an empty response.');
       }
 
       const data = await response.json();

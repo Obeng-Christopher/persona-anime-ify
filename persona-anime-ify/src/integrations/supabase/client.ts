@@ -6,18 +6,17 @@ const SUPABASE_URL = "https://dajghtnduzkdpdgglany.supabase.co";
 const SUPABASE_PUBLISHABLE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRhamdodG5kdXprZHBkZ2dsYW55Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY0MTc3MzksImV4cCI6MjA3MTk5MzczOX0.jJ3k1JAPqUQZO0kthL72NR0_A1RRoqwDmvtpAWgEFtc";
 
 // Create the main supabase client
-export const supabase = createClient<Database>(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
-  auth: {
-    storage: localStorage,
-    persistSession: true,
-    autoRefreshToken: true,
-  }
-});
+export const supabase = createClient<Database>(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
 
 // Helper function to get authenticated supabase client for a specific user
-export const getAuthenticatedSupabase = (userId: string) => {
-  // Since we're using Clerk for auth, we'll use the anon key but ensure RLS policies work
-  // The RLS policies in the database check against auth.uid() which should match the Clerk user ID
+export const getAuthenticatedSupabase = (token: string) => {
+  const supabase = createClient<Database>(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
+    global: {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    },
+  });
   return supabase;
 };
 

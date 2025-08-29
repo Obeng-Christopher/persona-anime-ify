@@ -1,3 +1,4 @@
+/// <reference types="https://deno.land/x/deno/cli/tsc/dts/lib.deno.d.ts" />
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts"
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.7.1'
 
@@ -13,6 +14,17 @@ serve(async (req) => {
   }
 
   try {
+    const supabaseUrl = Deno.env.get('SUPABASE_URL');
+    const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY');
+    const geminiApiKey = Deno.env.get('GEMINI_API_KEY');
+
+    if (!supabaseUrl || !supabaseServiceKey || !geminiApiKey) {
+      return new Response(
+        JSON.stringify({ error: 'Missing environment variables on the server.' }),
+        { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 500 }
+      );
+    }
+
     const { image, character_id, user_id } = await req.json()
 
     if (!image || !character_id || !user_id) {
@@ -23,8 +35,6 @@ serve(async (req) => {
     }
 
     // Initialize Supabase client
-    const supabaseUrl = Deno.env.get('SUPABASE_URL')!
-    const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!
     const supabase = createClient(supabaseUrl, supabaseServiceKey)
 
     // Get character details for transformation prompt
@@ -55,21 +65,20 @@ serve(async (req) => {
       .single()
 
     if (transformationError) {
-      console.error('Transformation creation error:', transformationError)
+      console.error('Transformation creation error:', transformationError);
       return new Response(
-        JSON.stringify({ error: 'Failed to create transformation record' }),
+        JSON.stringify({
+          error: 'Failed to create transformation record',
+          details: transformationError.message,
+        }),
         { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 500 }
-      )
+      );
     }
 
     // Convert base64 image to proper format for Gemini API
     const base64Data = image.split(',')[1]
     
     // Prepare Gemini API request
-    const geminiApiKey = Deno.env.get('GEMINI_API_KEY')
-    if (!geminiApiKey) {
-      throw new Error('Gemini API key not configured')
-    }
 
     // Create detailed transformation prompt
     const transformationPrompt = `
@@ -141,7 +150,7 @@ Make the transformation look natural and professionally done, as if it's officia
     console.log('Gemini response:', JSON.stringify(geminiResult, null, 2))
 
     // Extract the generated image from Gemini response
-    let transformedImage = null
+    let transformedImage: string | null = null
     
     if (geminiResult.candidates && geminiResult.candidates[0] && geminiResult.candidates[0].content) {
       for (const part of geminiResult.candidates[0].content.parts) {
