@@ -1,0 +1,22 @@
+{
+  "name": "transform-image-edge-function",
+  "version": "1.0.0",
+  "description": "Supabase Edge Function for AI-powered image transformation using Google Gemini",
+  "main": "index.ts",
+  "scripts": {
+    "deploy": "supabase functions deploy transform-image",
+    "test": "deno run --allow-net --allow-env index.ts"
+  },
+  "dependencies": {},
+  "devDependencies": {},
+  "keywords": [
+    "supabase",
+    "edge-function",
+    "ai",
+    "image-generation",
+    "gemini",
+    "anime"
+  ],
+  "author": "AnimeMe Team",
+  "license": "MIT"
+}

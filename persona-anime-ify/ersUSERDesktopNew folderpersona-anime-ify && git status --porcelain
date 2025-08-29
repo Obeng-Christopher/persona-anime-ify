@@ -1,0 +1,5 @@
+[33m85ba22b[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m Fix colored strips issue: Replace problematic bg-gradient bg-clip-text text-transparent with proper text-gradient classes
+[33me0ccd1e[m Fix Clerk publishable key
+[33me980b5a[m Add main app page
+[33me80e8ea[m Fix Clerk publishable key error
+[33ma13d98f[m Fix blank app page
