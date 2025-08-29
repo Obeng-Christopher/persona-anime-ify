@@ -46,10 +46,11 @@ const Transform = () => {
 
     setIsTransforming(true);
     try {
-      const response = await fetch('/api/transform-image', {
+      const response = await fetch(`https://dajghtnduzkdpdgglany.supabase.co/functions/v1/transform-image`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`
         },
         body: JSON.stringify({
           image: uploadedImage,
@@ -59,7 +60,8 @@ const Transform = () => {
       });
 
       if (!response.ok) {
-        throw new Error('Transformation failed');
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Transformation failed');
       }
 
       const data = await response.json();
@@ -67,7 +69,7 @@ const Transform = () => {
       toast.success("Transformation completed!");
     } catch (error) {
       console.error('Transformation error:', error);
-      toast.error("Transformation failed. Please try again.");
+      toast.error(`Transformation failed: ${error.message}`);
     } finally {
       setIsTransforming(false);
     }
